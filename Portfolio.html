@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Archit Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Roboto Mono', monospace;
+      background-color: #0a0a0a; /* Fallback background */
+      color: #00ff88;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    /* Static Neon Background */
+    .static-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: linear-gradient(135deg, #0a0a0a 60%, rgba(0, 255, 136, 0.3) 100%);
+      opacity: 1; /* High opacity for testing visibility */
+    }
+
+    .terminal {
+      max-width: 1000px;
+      background-color: rgba(10, 10, 10, 0.95);
+      padding: 2.5rem;
+      border: 1px solid #00ff88;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 255, 136, 0.3), inset 0 0 10px rgba(0, 255, 136, 0.2);
+      margin: 2rem auto;
+      display: none;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .boot-screen {
+      color: #00ff88;
+      font-size: 1.1rem;
+      white-space: pre-wrap;
+      padding: 2rem;
+      text-align: center;
+      animation: fadeOut 2s ease-in 4s forwards;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(0, 20, 20, 0.8) 100%);
+      z-index: 1;
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+        display: none;
+      }
+    }
+
+    .output {
+      white-space: pre-wrap;
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .prompt {
+      color: #00ff88;
+      font-weight: 700;
+    }
+
+    input[type="text"] {
+      background: none;
+      border: none;
+      color: #00ff88;
+      font: inherit;
+      width: 100%;
+      outline: none;
+      caret-color: #00ff88;
+    }
+
+    .blinking-cursor::after {
+      content: '▋';
+      animation: blink 1s steps(2, start) infinite;
+      margin-left: 2px;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    .center-img {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 1.5rem 0;
+    }
+
+    .center-img img.profile {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 3px solid #00ff88;
+      margin-bottom: 1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .center-img img.profile:hover {
+      transform: scale(1.05);
+    }
+
+    a {
+      color: #00ccff;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: #66ffcc;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .terminal {
+        margin: 1rem;
+        padding: 1.5rem;
+      }
+
+      .center-img img.profile {
+        width: 100px;
+        height: 100px;
+      }
+
+      .output {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="static-background"></div>
+  <div id="boot" class="boot-screen">
+    Initializing BIOS...
+    
+    Checking RAM... OK
+    
+    Detecting display... OK
+
+    Loading OS kernel...
+
+    Starting terminal shell...
+
+
+
+
+
+
+
+
+
+
+
+
+  Terminal Started Successfully !!
+
+
+
+
+
+
+
+
+
+
+  
+  </div>
+
+  <div class="terminal" id="terminal">
+    <div id="output-area" class="output">
+      <div><span class="prompt">archit@vit-terminal:~$</span> about.me </div>
+      <div>
+        <div class="center-img">
+          <img src="archit.jpg" alt="Archit" class="profile">
+        </div>
+Hi, I’m Archit Jedge. 
+I’m an engineering student passionate about building innovative tech projects. My interests span AI, Data Structures & Algorithms, and web development. I’m always eager to learn new technologies, having worked on practical projects, participated in clubs, and competed in hackathons. I thrive on transforming ideas into tangible solutions. Beyond coding, I enjoy cricket, football, music, and the occasional book.
+      </div>
+    </div>
+    <div class="prompt blinking-cursor">archit@vit-terminal:~$ <input type="text" id="terminal-input" autocomplete="off"></div>
+  </div>
+
+  <script>
+    // Terminal Logic
+    const input = document.getElementById("terminal-input");
+    const output = document.getElementById("output-area");
+    const terminal = document.getElementById("terminal");
+    const boot = document.getElementById("boot");
+
+    setTimeout(() => {
+      boot.style.display = 'none';
+      terminal.style.display = 'block';
+      terminal.style.opacity = '1';
+    }, 5000);
+
+    const commands = {
+      "about.me": `
+<div class="center-img">
+  <img src="archit.jpg" alt="Archit" class="profile">
+</div>
+Hi, I’m Archit Jedge. 
+I’m an engineering student passionate about building innovative tech projects. My interests span AI, Data Structures & Algorithms, and web development. I’m always eager to learn new technologies, having worked on practical projects, participated in clubs, and competed in hackathons. I thrive on transforming ideas into tangible solutions. Beyond coding, I enjoy cricket, football, music, and the occasional book.`,
+      "projects.exe": `
+VishwaNet:
+Developed VishwaNet, a campus-exclusive social media platform for VIT students to connect, collaborate, and engage with peers. The platform features personalized student profiles, interest-based discussion groups similar to Reddit, and a real-time feed for sharing updates and achievements. Designed to foster community and peer learning, VishwaNet ensures a secure environment restricted to VIT students. Built using HTML, CSS, and JavaScript, with Firebase integration for authentication and real-time database functionalities.
+Link: <a href="https://architttttt-j.github.io/VishwaNet/dashboardDummy.html" target="_blank">VishwaNet</a>`,
+      "skills.txt": "Python\nC Programming\nC++\nHTML\nCSS\nJavaScript",
+      "Experience.exe": "None at the moment, will update soon.",
+      "Education": `
+Vishwakarma Institute of Technology:
+B.Tech in Computer Engineering (2024–2028)
+
+Sarhad School:
+1st to 10th Standard (2009–2022)`,
+      "Socials": `
+GitHub: <a href="https://github.com/Architttttt-j" target="_blank">github.com/Architttttt-j</a>
+LeetCode: <a href="https://leetcode.com/u/Architttttt-j/" target="_blank">leetcode.com/u/Architttttt-j</a>
+LinkedIn: <a href="https://www.linkedin.com/in/archit-jedge-9a55ba315/" target="_blank">linkedin.com/in/archit-jedge</a>`,
+      "clear": "clear_screen",
+      "help": "Available commands:\nabout.me\nprojects.exe\nskills.txt\nExperience.exe\nEducation\nSocials\nclear\nhelp"
+    };
+
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        const command = input.value.trim();
+        const commandLine = document.createElement("div");
+        commandLine.innerHTML = `<span class='prompt'>archit@vit-terminal:~$</span> ${command}`;
+        output.appendChild(commandLine);
+
+        if (commands[command] === "clear_screen") {
+          output.innerHTML = "";
+        } else {
+          const response = commands[command] || `Command not found: ${command}`;
+          const responseLine = document.createElement("div");
+          responseLine.innerHTML = response;
+          output.appendChild(responseLine);
+        }
+
+        input.value = "";
+        window.scrollTo(0, document.body.scrollHeight);
+      }
+    });
+  </script>
+</body>
+</html>
